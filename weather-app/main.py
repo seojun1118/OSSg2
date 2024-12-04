@@ -20,3 +20,15 @@ def main():
 
     weather_info = get_weather(city, api_key)
     print(weather_info)
+
+def main():
+    api_key = "YOUR_API_KEY"
+    while True:
+        city = input("Enter the city name (type 'exit' to quit): ")
+
+        if city.lower() == "exit":  # 사용자가 'exit' 입력 시 프로그램 종료
+            print("Exiting the program. Goodbye!")
+            break
+
+        weather_info = get_weather(city, api_key)
+        print(weather_info)
