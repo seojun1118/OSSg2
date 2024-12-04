@@ -1,13 +1,6 @@
-name: Weather App Workflow
-
-on:
-  push:
-    branches:
-      - main  # main 브랜치에 푸시할 때 실행
-
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # 명시적으로 Ubuntu 22.04를 지정
 
     steps:
     - name: Checkout repository
@@ -19,10 +12,10 @@ jobs:
         python-version: '3.8'
 
     - name: Cache Python dependencies
-      uses: actions/cache@v3  # v3로 변경
+      uses: actions/cache@v3
       with:
-        path: ~/.cache/pip  # 캐시할 경로
-        key: ${{ runner.os }}-python-${{ hashFiles('**/requirements.txt') }}  # 캐시 키 (requirements.txt 변경 시 새 캐시)
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-python-${{ hashFiles('**/requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-python-
 
