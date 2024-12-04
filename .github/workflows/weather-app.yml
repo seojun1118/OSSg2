@@ -1,6 +1,6 @@
 name: Weather App Workflow
 
-# 이 워크플로우는 main 브랜치에 푸시할 때마다 실행됩니다.
+# 워크플로우를 실행할 이벤트 설정 (여기서는 'main' 브랜치에 푸시할 때 실행)
 on:
   push:
     branches:
@@ -8,22 +8,35 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Ubuntu 최신 버전에서 실행
+    runs-on: ubuntu-latest  # 최신 Ubuntu 환경에서 실행
 
     steps:
+    # 1단계: 리포지토리에서 코드를 체크아웃
     - name: Checkout repository
-      uses: actions/checkout@v2  # 리포지토리에서 파일을 체크아웃
+      uses: actions/checkout@v2  # GitHub 리포지토리에서 코드를 가져옵니다.
 
-    - name: Set up Python  # Python 환경 설정
+    # 2단계: Python 환경 설정
+    - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.8'  # 사용할 Python 버전
+        python-version: '3.8'  # 사용할 Python 버전 설정
 
+    # 3단계: Python 의존성 캐시 (선택 사항, 의존성 설치 시간을 줄이기 위해)
+    - name: Cache Python dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/pip  # pip 캐시 경로 설정
+        key: ${{ runner.os }}-python-${{ hashFiles('**/requirements.txt') }}  # 캐시 키 (requirements.txt 변경 시 새 캐시)
+        restore-keys: |
+          ${{ runner.os }}-python-
+
+    # 4단계: 의존성 설치
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip  # pip 최신 버전으로 업그레이드
-        pip install -r requirements.txt  # requirements.txt에 명시된 라이브러리 설치
+        pip install -r requirements.txt  # requirements.txt에 나열된 라이브러리 설치
 
+    # 5단계: 날씨 앱 실행
     - name: Run the weather app
       run: |
-        python main.py  # main.py 실행 (날씨 프로그램 실행)
+        python main.py  # main.py 파일 실행
