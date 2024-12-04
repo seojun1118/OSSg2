@@ -32,4 +32,4 @@ jobs:
 
     - name: Run the weather app
       run: |
-        python main.py  # weather 앱 실행
+        python weather-app/main.py  # weather 앱 실행
