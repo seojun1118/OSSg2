@@ -31,3 +31,4 @@ def get_weather(city, api_key):
                f"온도: {temperature}°C\n" \
                f"습도: {humidity}%\n" \
                f"날씨: {weather_description.capitalize()}"
+        
