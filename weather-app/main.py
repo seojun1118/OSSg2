@@ -9,3 +9,14 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
+def main():
+    api_key = "YOUR_API_KEY"
+    city = input("Enter the city name: ")
+
+    if not city.strip():  # 입력값이 비었는지 확인
+        print("Error: City name cannot be empty. Please enter a valid city name.")
+        return
+
+    weather_info = get_weather(city, api_key)
+    print(weather_info)
