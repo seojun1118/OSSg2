@@ -49,4 +49,3 @@ This program uses the OpenWeatherMap API to provide real-time weather informatio
 
 ## References
 - OpenWeatherMap API: [https://openweathermap.org/](https://openweathermap.org/)
-
