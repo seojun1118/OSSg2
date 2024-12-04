@@ -1,29 +1,37 @@
+name: Weather App Workflow
+
+# 워크플로우가 실행될 트리거 이벤트 정의
+on:
+  push:
+    branches:
+      - main  # main 브랜치에 푸시할 때 워크플로우 실행
+
 jobs:
   build:
-    runs-on: ubuntu-22.04  # 명시적으로 Ubuntu 22.04를 지정
+    runs-on: ubuntu-latest  # 실행 환경
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v2  # 리포지토리 체크아웃
 
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.8'
+        python-version: '3.8'  # Python 3.8 버전 설정
 
     - name: Cache Python dependencies
       uses: actions/cache@v3
       with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-python-${{ hashFiles('**/requirements.txt') }}
+        path: ~/.cache/pip  # pip 캐시 경로
+        key: ${{ runner.os }}-python-${{ hashFiles('**/requirements.txt') }}  # 캐시 키
         restore-keys: |
           ${{ runner.os }}-python-
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r requirements.txt  # 의존성 설치
 
     - name: Run the weather app
       run: |
-        python main.py
+        python main.py  # weather 앱 실행
